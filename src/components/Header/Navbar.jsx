@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import logo from "../../assets/images/logo.svg";
 
 const Navbar = () => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
   const navLinks = (
     <>
       <li>
@@ -44,7 +46,13 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a
+            onClick={() => navigate("/")}
+            className="text-2xl font-bold flex place-items-center"
+          >
+            {" "}
+            <img src={logo} alt="" /> Synapse
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
