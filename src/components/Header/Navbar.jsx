@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { logout } = useAuth();
   const navLinks = (
     <>
       <li>
@@ -8,6 +10,9 @@ const Navbar = () => {
       </li>
       <li>
         <Link to={"/register"}>Register</Link>
+      </li>
+      <li onClick={logout}>
+        <button>Log out</button>
       </li>
     </>
   );

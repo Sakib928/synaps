@@ -4,13 +4,14 @@ import Lottie from "lottie-react";
 import { useState } from "react";
 import { BiSolidHide } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const { createUser } = useAuth();
+  const { createUser, profileUpdate, logout } = useAuth();
   const [passState, setPassState] = useState(false);
+  const navigate = useNavigate();
   const handleShowPass = () => {
     setPassState(!passState);
   };
@@ -24,6 +25,12 @@ const Register = () => {
     createUser(data.email, data.password)
       .then(() => {
         toast.success("Successfully registered");
+        setTimeout(() => {
+          profileUpdate(data.name, data.photo);
+        }, 2000);
+        logout().then(() => {
+          navigate("/login");
+        });
       })
       .catch((err) => {
         toast.error(err);
@@ -72,6 +79,22 @@ const Register = () => {
                     <p className="text-red-600">This field is required</p>
                   )}
                 </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">PhotoURL</span>
+                  </label>
+                  <input
+                    {...register("photo", { required: true })}
+                    type="text"
+                    name="photo"
+                    className="input input-bordered"
+                    required
+                  />
+                  {errors.photo && (
+                    <p className="text-red-600">This field is required</p>
+                  )}
+                </div>
+
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Password </span>
