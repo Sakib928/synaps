@@ -1,16 +1,19 @@
 import Lottie from "lottie-react";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { FaEye, FaGoogle } from "react-icons/fa";
+import { FaEye, FaGithub, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import loginAnimation from "../../assets/images/login_animation.json";
 import { BiSolidHide } from "react-icons/bi";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const { login, googleLogin, githubLogin } = useAuth();
   const [passState, setPassState] = useState(false);
   const handleShowPass = () => {
     setPassState(!passState);
   };
+
   return (
     <div className="hero bg-base-200">
       <Toaster />
@@ -60,8 +63,17 @@ const Login = () => {
                   <button className="btn btn-primary">Login</button>
                 </div>
                 <div className="mt-4 flex">
-                  <p className="flex place-items-center gap-3 btn btn-ghost">
+                  <p
+                    onClick={googleLogin}
+                    className="flex place-items-center gap-3 btn btn-ghost"
+                  >
                     <FaGoogle></FaGoogle>Google
+                  </p>
+                  <p
+                    onClick={githubLogin}
+                    className="flex place-items-center gap-3 btn btn-ghost"
+                  >
+                    <FaGithub></FaGithub>Github
                   </p>
                 </div>
               </form>
