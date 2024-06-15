@@ -13,6 +13,9 @@ const Navbar = () => {
       <li>
         <Link to={"/register"}>Register</Link>
       </li>
+      <li>
+        <Link to={"/dashboard"}>Dashboard</Link>
+      </li>
       <li onClick={logout}>
         <button>Log out</button>
       </li>
