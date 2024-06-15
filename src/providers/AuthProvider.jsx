@@ -13,6 +13,7 @@ import { auth } from "../firebase/firebase.config";
 import { axiosPublic } from "../hooks/useAxiosPublic";
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+githubProvider.addScope("user:email");
 
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {

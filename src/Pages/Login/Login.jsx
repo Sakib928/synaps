@@ -7,6 +7,7 @@ import loginAnimation from "../../assets/images/login_animation.json";
 import { BiSolidHide } from "react-icons/bi";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { axiosPublic } from "../../hooks/useAxiosPublic";
 
 const Login = () => {
   const { login, googleLogin, githubLogin } = useAuth();
@@ -16,7 +17,7 @@ const Login = () => {
   };
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
+  const from = location.state?.from?.pathname || "/";
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
@@ -25,13 +26,48 @@ const Login = () => {
         toast.success("successfully logged in");
         setTimeout(() => {
           {
-            location.state ? navigate(`${location.state}`) : navigate("/");
+            navigate(from, { replace: true });
           }
         }, 2000);
       })
       .catch((err) => {
         toast.error(err);
       });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin().then((res) => {
+      console.log(res.user);
+      const userInfo = {
+        name: res.user?.displayName,
+        email: res.user?.email,
+        role: "student",
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      });
+      toast.success("succesfully logged in");
+    });
+  };
+  const handleGithubLogin = () => {
+    githubLogin().then((res) => {
+      // console.log("github check", res.user);
+      const userInfo = {
+        email: res.user?.email,
+        name: res.user?.displayName,
+        role: "student",
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      });
+      toast.success("succesfully logged in");
+    });
   };
 
   return (
@@ -86,13 +122,13 @@ const Login = () => {
                 </div>
                 <div className="mt-4 flex">
                   <p
-                    onClick={googleLogin}
+                    onClick={handleGoogleLogin}
                     className="flex place-items-center gap-3 btn btn-ghost"
                   >
                     <FaGoogle></FaGoogle>Google
                   </p>
                   <p
-                    onClick={githubLogin}
+                    onClick={handleGithubLogin}
                     className="flex place-items-center gap-3 btn btn-ghost"
                   >
                     <FaGithub></FaGithub>Github

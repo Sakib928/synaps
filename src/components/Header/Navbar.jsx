@@ -1,10 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import logo from "../../assets/images/logo.svg";
+import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const handleLogout = () => {
+    logout().then(() => {
+      toast.success("logged out successfully");
+    });
+  };
   const navLinks = (
     <>
       <li>
@@ -16,13 +22,14 @@ const Navbar = () => {
       <li>
         <Link to={"/dashboard"}>Dashboard</Link>
       </li>
-      <li onClick={logout}>
+      <li onClick={handleLogout}>
         <button>Log out</button>
       </li>
     </>
   );
   return (
     <div>
+      <Toaster />
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">

@@ -7,6 +7,7 @@ import { FaEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { axiosPublic } from "../../hooks/useAxiosPublic";
 
 const Register = () => {
   const { createUser, profileUpdate, logout } = useAuth();
@@ -24,7 +25,16 @@ const Register = () => {
     console.log(data);
     createUser(data.email, data.password)
       .then(() => {
-        toast.success("Successfully registered");
+        const user = {
+          name: data.name,
+          email: data.email,
+          role: data.role,
+        };
+        axiosPublic.post("/users", user).then((res) => {
+          if (res.data.insertedId) {
+            toast.success("Successfully registered");
+          }
+        });
         setTimeout(() => {
           profileUpdate(data.name, data.photo);
         }, 2000);
@@ -127,9 +137,8 @@ const Register = () => {
                     <option disabled selected>
                       Select your role
                     </option>
-                    <option>Student</option>
-                    <option>Tutor</option>
-                    <option>Admin</option>
+                    <option>student</option>
+                    <option>tutor</option>
                   </select>
                   {errors.role && (
                     <p className="text-red-600">This field is required</p>

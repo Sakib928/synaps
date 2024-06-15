@@ -5,6 +5,7 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import SessionDetails from "../components/SessionDetails/SessionDetails";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "session/:id",
-        element: <SessionDetails />,
+        element: (
+          <PrivateRoute>
+            <SessionDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
