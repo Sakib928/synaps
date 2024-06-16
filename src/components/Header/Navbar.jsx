@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link to={"/register"}>Register</Link>
       </li>
       <li>
-        <Link to={"/dashboard"}>Dashboard</Link>
+        <Link to={"/dashboard/createSession"}>Dashboard</Link>
       </li>
       <li onClick={handleLogout}>
         <button>Log out</button>

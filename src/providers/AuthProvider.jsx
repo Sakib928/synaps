@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sessions, setSessions] = useState([]);
+  const [authReload, setAuthReload] = useState(false);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -65,7 +66,7 @@ const AuthProvider = ({ children }) => {
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [authReload]);
   const authInfo = {
     user,
     createUser,
@@ -78,6 +79,8 @@ const AuthProvider = ({ children }) => {
     profileUpdate,
     sessions,
     setSessions,
+    authReload,
+    setAuthReload,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

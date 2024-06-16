@@ -10,34 +10,38 @@ import { useForm } from "react-hook-form";
 import { axiosPublic } from "../../hooks/useAxiosPublic";
 
 const Register = () => {
-  const { createUser, profileUpdate, logout } = useAuth();
+  const { createUser, profileUpdate, logout, authReload, setAuthReload } =
+    useAuth();
   const [passState, setPassState] = useState(false);
   const navigate = useNavigate();
   const handleShowPass = () => {
     setPassState(!passState);
   };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     console.log(data);
+
     createUser(data.email, data.password)
       .then(() => {
-        const user = {
-          name: data.name,
-          email: data.email,
-          role: data.role,
-        };
-        axiosPublic.post("/users", user).then((res) => {
-          if (res.data.insertedId) {
-            toast.success("Successfully registered");
-          }
+        // console.log(res.user);
+        profileUpdate(data.name, data.photo).then(() => {
+          const user = {
+            name: data.name,
+            email: data.email,
+            role: data.role,
+          };
+          axiosPublic.post("/users", user).then((res) => {
+            if (res.data.insertedId) {
+              toast.success("Successfully registered");
+            }
+          });
         });
-        setTimeout(() => {
-          profileUpdate(data.name, data.photo);
-        }, 2000);
         logout().then(() => {
           navigate("/login");
         });
@@ -45,6 +49,9 @@ const Register = () => {
       .catch((err) => {
         toast.error(err);
       });
+    setTimeout(() => {
+      setAuthReload(!authReload);
+    }, 2000);
   };
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -131,10 +138,11 @@ const Register = () => {
                 </div>
                 <div className="form-control mt-4">
                   <select
+                    defaultValue={"default"}
                     {...register("role", { required: true })}
                     className="select select-bordered w-full max-w-xs"
                   >
-                    <option disabled selected>
+                    <option value="default" disabled selected>
                       Select your role
                     </option>
                     <option>student</option>
