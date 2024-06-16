@@ -1,13 +1,13 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { FaUtensils } from "react-icons/fa";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CreateSession = () => {
-  // const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
   // console.log(startDate);
   // console.log(new Date());
   const { user } = useAuth();
@@ -29,50 +29,116 @@ const CreateSession = () => {
                 id="email"
                 type="text"
                 placeholder="Session Title"
-                className="w-full rounded-md input border-black input-bordered p-2"
+                className="w-full rounded-md input border-black border-2 input-bordered p-2"
               />
             </div>
             <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-4">
               <div className="col-span-full sm:col-span-3">
-                <label htmlFor="lastname" className="text-sm">
+                <label htmlFor="tutorname" className="text-sm">
                   Tutor Name
                 </label>
                 <input
-                  id="lastname"
+                  id="tutorname"
                   type="text"
                   value={user?.displayName}
                   readOnly
-                  className="w-full rounded-md input border-black p-2"
+                  className="w-full rounded-md input border-2 border-black p-2"
                 />
               </div>
               <div className="col-span-full sm:col-span-3">
-                <label htmlFor="lastname" className="text-sm">
-                  Price
+                <label htmlFor="tutoremail" className="text-sm">
+                  Tutor Email
                 </label>
                 <input
-                  id="lastname"
+                  id="tutoremail"
                   type="text"
-                  placeholder="Price"
-                  className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 p-2"
+                  value={user?.email}
+                  readOnly
+                  className="w-full rounded-md input border-2 border-black p-2"
                 />
               </div>
               <div className="col-span-full">
                 <label className="form-control ">
                   <div className="label">
-                    <span className="label-text">Recipe Details</span>
+                    <span className="label-text">Session Description</span>
                   </div>
                   <textarea
-                    className="textarea textarea-bordered h-24 bg-[#121212]"
-                    placeholder="Recipe Details"
+                    className="textarea textarea-bordered h-24 input border-2 border-black"
+                    placeholder="Session Description"
                   ></textarea>
                 </label>
               </div>
             </div>
-            <div className="form-control w-full my-6 col-span-2">
-              <input type="file" className="file-input w-full bg-[#121212]" />
+            <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-4">
+              <div className="col-span-full sm:col-span-3 ">
+                <label htmlFor="regiStart" className="text-sm">
+                  Registration Start
+                </label>
+                <br />
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="input input-bordered border-2 border-black max-w-xs"
+                />
+              </div>
+              <div className="col-span-full sm:col-span-3">
+                <label htmlFor="regiEnd" className="text-sm">
+                  Registration End
+                </label>
+                <br />
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="input input-bordered w-full border-2 border-black max-w-xs"
+                />
+              </div>
+              <div className="col-span-full sm:col-span-3">
+                <label htmlFor="classStart" className="text-sm">
+                  Class Start
+                </label>
+                <br />
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="input input-bordered w-full border-2 border-black max-w-xs"
+                />
+              </div>
+              <div className="col-span-full sm:col-span-3">
+                <label htmlFor="classEnd" className="text-sm">
+                  Tutor Email
+                </label>
+                <br />
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="input input-bordered w-full border-2 border-black max-w-xs"
+                />
+              </div>
+              <div className="col-span-full sm:col-span-3">
+                <label htmlFor="duration" className="text-sm">
+                  Session Duration
+                </label>
+                <input
+                  id="duration"
+                  type="text"
+                  className="w-full rounded-md input border-2 border-black p-2"
+                />
+              </div>
+              <div className="col-span-full sm:col-span-3">
+                <label htmlFor="tutoremail" className="text-sm">
+                  Tutor Email
+                </label>
+                <input
+                  id="tutoremail"
+                  type="text"
+                  value={user?.email}
+                  readOnly
+                  className="w-full rounded-md input border-2 border-black p-2"
+                />
+              </div>
             </div>
           </fieldset>
-          <button className="btn bg-[#121212]" type="submit">
+          <button className="btn btn-primary" type="submit">
             Add Item <FaUtensils></FaUtensils>
           </button>
         </form>
