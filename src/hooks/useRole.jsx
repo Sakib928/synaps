@@ -8,7 +8,7 @@ const useRole = () => {
   const [userRole, setUserRole] = useState("student");
   useEffect(() => {
     axiosSecure.get(`/role?email=${user?.email}`).then((res) => {
-      setUserRole(res.data);
+      setUserRole(res?.data);
     });
   }, [axiosSecure, user?.email]);
   return userRole;
