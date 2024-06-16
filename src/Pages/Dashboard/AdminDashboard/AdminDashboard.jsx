@@ -12,6 +12,9 @@ const AdminDashboard = () => {
       <li>
         <Link to={"/dashboard/allMaterials"}>View All Materials</Link>
       </li>
+      <li>
+        <Link to={"/"}>HomePage</Link>
+      </li>
     </ul>
   );
 };

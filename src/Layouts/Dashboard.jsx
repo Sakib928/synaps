@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
 import useRole from "../hooks/useRole";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
-import StudentDashboard from "../Pages/Dashboard/StudentDashboard/StudentDashboard";
+
 import TutorDashboard from "../Pages/Dashboard/TutorDashboard/TutorDashboard";
+import StudentDashboard from "../Pages/Dashboard/StudentDashboard/StudentDashboard";
 
 const Dashboard = () => {
   const userRole = useRole();
