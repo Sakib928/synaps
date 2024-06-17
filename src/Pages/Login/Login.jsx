@@ -21,7 +21,7 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    login(data.email, data.password)
+    login(data?.email, data?.password)
       .then(() => {
         toast.success("successfully logged in");
         setTimeout(() => {
