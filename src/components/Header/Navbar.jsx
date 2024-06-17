@@ -2,15 +2,25 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import logo from "../../assets/images/logo.svg";
 import toast, { Toaster } from "react-hot-toast";
+import useRole from "../../hooks/useRole";
 
 const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const userRole = useRole();
   const handleLogout = () => {
     logout().then(() => {
       toast.success("logged out successfully");
     });
   };
+  let primaryDashboardLink = "";
+  if (userRole === "admin") {
+    primaryDashboardLink = "/dashboard/users";
+  } else if (userRole === "tutor") {
+    primaryDashboardLink = "/dashboard/createSession";
+  } else {
+    primaryDashboardLink = "/dashboard/bookedSessions";
+  }
   const navLinks = (
     <>
       <li>
@@ -20,7 +30,7 @@ const Navbar = () => {
         <Link to={"/register"}>Register</Link>
       </li>
       <li>
-        <Link to={"/dashboard/createSession"}>Dashboard</Link>
+        <Link to={primaryDashboardLink}>Dashboard</Link>
       </li>
       <li onClick={handleLogout}>
         <button>Log out</button>

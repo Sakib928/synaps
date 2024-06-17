@@ -1,19 +1,19 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const AdminDashboard = () => {
   return (
     <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
       <li>
-        <Link to={"/dashboard/users"}>View All Users</Link>
+        <NavLink to={"/dashboard/users"}>View All Users</NavLink>
       </li>
       <li>
-        <Link to={"/dashboard/allSessions"}>View All Sessions</Link>
+        <NavLink to={"/dashboard/allSessions"}>View All Sessions</NavLink>
       </li>
       <li>
-        <Link to={"/dashboard/allMaterials"}>View All Materials</Link>
+        <NavLink to={"/dashboard/allMaterials"}>View All Materials</NavLink>
       </li>
       <li>
-        <Link to={"/"}>HomePage</Link>
+        <NavLink to={"/"}>HomePage</NavLink>
       </li>
     </ul>
   );
