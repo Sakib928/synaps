@@ -8,6 +8,7 @@ const DashboardSessionCard = ({ session, refetch, idx }) => {
   const axiosSecure = useAxiosSecure();
   const { title, status, description, _id, tutorEmail } = session;
   const feeRef = useRef();
+  const reasonRef = useRef();
   const feedBackRef = useRef();
 
   const [approveId, setApproveId] = useState("");
@@ -39,6 +40,7 @@ const DashboardSessionCard = ({ session, refetch, idx }) => {
     console.log("this id session will be rejected", rejectId);
     const feedback = {
       sessionId: rejectId,
+      reason: reasonRef.current.value,
       feedback: feedBackRef.current.value,
       tutorEmail: tutorEmail,
     };
@@ -51,7 +53,7 @@ const DashboardSessionCard = ({ session, refetch, idx }) => {
     });
   };
   return (
-    <div className="max-w-2xl px-8 py-4 bg-slate-400 mb-6 rounded-lg shadow-md ">
+    <div className="max-w-2xl px-8 py-4 bg-slate-300 mb-6 rounded-lg shadow-md ">
       <Toaster />
       <div className="flex items-center justify-between">
         <a
@@ -116,7 +118,7 @@ const DashboardSessionCard = ({ session, refetch, idx }) => {
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">Reject this session ?</h3>
           <input
-            ref={feeRef}
+            ref={reasonRef}
             type="text"
             placeholder="Rejection Reason"
             className="input input-bordered w-full max-w-xs mb-4"
