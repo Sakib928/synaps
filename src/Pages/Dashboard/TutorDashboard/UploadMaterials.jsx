@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import UploadCard from "../../../components/UploadCard/UploadCard";
+import { Toaster } from "react-hot-toast";
 
 const UploadMaterials = () => {
   const axiosSecure = useAxiosSecure();
@@ -16,6 +17,7 @@ const UploadMaterials = () => {
 
   return (
     <div>
+      <Toaster />
       {approved.map((session) => {
         return <UploadCard key={session._id} session={session}></UploadCard>;
       })}
