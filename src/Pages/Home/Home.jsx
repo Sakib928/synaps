@@ -1,18 +1,17 @@
-import { useEffect } from "react";
 import Banner from "../../components/Header/Banner";
-import axios from "axios";
 import SessionCard from "./SessionCard";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import useAuth from "../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import { axiosPublic } from "../../hooks/useAxiosPublic";
 
 const Home = () => {
-  const { sessions, setSessions } = useAuth();
-  useEffect(() => {
-    axios.get("sessions.json").then((res) => {
-      setSessions(res.data);
-      // console.log(res.data);
-    });
-  }, [setSessions]);
+  const { data: sessions = [] } = useQuery({
+    queryKey: ["sessions"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/sessions");
+      return res.data;
+    },
+  });
 
   return (
     <div className="my-4">
@@ -20,7 +19,9 @@ const Home = () => {
       <SectionTitle heading={"hello"} subheading={"there"}></SectionTitle>
       <div className="grid grid-cols-3 mx-auto gap-4">
         {sessions.map((session) => {
-          return <SessionCard key={session.id} session={session}></SessionCard>;
+          return (
+            <SessionCard key={session._id} session={session}></SessionCard>
+          );
         })}
       </div>
     </div>

@@ -31,7 +31,7 @@ const Login = () => {
         }, 2000);
       })
       .catch((err) => {
-        toast.error(err);
+        return toast.error(err);
       });
   };
 

@@ -5,7 +5,6 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Dashboard from "../Layouts/Dashboard";
 import SessionDetails from "../components/SessionDetails/SessionDetails";
-import PrivateRoute from "./PrivateRoute";
 import Users from "../Pages/Dashboard/AdminDashboard/Users";
 import AllSessions from "../Pages/Dashboard/AdminDashboard/AllSessions";
 import AllMaterials from "../Pages/Dashboard/AdminDashboard/AllMaterials";
@@ -38,11 +37,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "session/:id",
-        element: (
-          <PrivateRoute>
-            <SessionDetails />
-          </PrivateRoute>
-        ),
+        element: <SessionDetails />,
       },
     ],
   },

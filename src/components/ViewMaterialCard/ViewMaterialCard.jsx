@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 
-const ViewMaterialCard = ({ material }) => {
+const ViewMaterialCard = ({ material, refetch }) => {
   const { user } = useAuth();
   const { _id, title } = material;
   const axiosSecure = useAxiosSecure();
-  const handleUpload = (_id) => {
-    console.log("upload for session", _id);
+  const handleUpload = () => {
+    // console.log("upload for session", _id);
     document.getElementById("my_modal_6").showModal();
   };
   const { register, handleSubmit } = useForm();
@@ -36,16 +36,22 @@ const ViewMaterialCard = ({ material }) => {
       console.log(materialRes.data);
       if (materialRes.data.modifiedCount) {
         toast.success("updated item successfully");
+        refetch();
       } else {
         toast.error("something went wrong");
       }
     }
   };
-  const onSubmit2 = (data) => {
-    console.log(data);
+  const handleDeleteMaterial = () => {
+    axiosSecure.delete(`/materials/${_id}`).then((res) => {
+      if (res.data.deletedCount) {
+        toast.success("deleted item succesfully");
+        refetch();
+      }
+    });
   };
   return (
-    <div className="relative flex flex-col max-w-2xl p-6 divide-y xl:flex-row xl:divide-y-0 xl:divide-x bg-slate-400 dark:divide-gray-300 rounded-xl">
+    <div className="relative flex flex-col max-w-2xl p-6 divide-y xl:flex-row xl:divide-y-0 xl:divide-x bg-slate-400 dark:divide-gray-300 rounded-xl mt-4">
       <div className="p-3 space-y-1">
         <h3 className="text-3xl font-semibold">Material Title : {title}</h3>
       </div>
@@ -58,7 +64,10 @@ const ViewMaterialCard = ({ material }) => {
             >
               update
             </button>
-            <button className="inline-block px-2 py-1 text-sm font-semibold rounded-md bg-violet-600 text-gray-50 w-full">
+            <button
+              onClick={handleDeleteMaterial}
+              className="inline-block px-2 py-1 text-sm font-semibold rounded-md bg-violet-600 text-gray-50 w-full"
+            >
               delete
             </button>
           </div>
@@ -70,7 +79,7 @@ const ViewMaterialCard = ({ material }) => {
           <h3 className="font-bold text-lg">
             Update materials for this session
           </h3>
-          <form onSubmit={handleSubmit(onSubmit2)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="label">
               <span className="label-text">Title of the material</span>
             </div>
