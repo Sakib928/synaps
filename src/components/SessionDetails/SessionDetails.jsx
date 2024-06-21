@@ -1,14 +1,17 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 
 const SessionDetails = () => {
+  const { setPayment } = useAuth();
   const id = useParams();
   const axiosSecure = useAxiosSecure();
   const { data: session = {} } = useQuery({
     queryKey: ["sessionDetails", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/singleSession/${id.id}`);
+      setPayment(res?.data?.fee);
       return res.data;
     },
   });
@@ -50,7 +53,9 @@ const SessionDetails = () => {
               </h3>
             </div>
           </div>
-          <button className="btn btn-primary mt-4">Book Now</button>
+          <Link to={`/payment/${session?._id}`}>
+            <button className="btn btn-primary mt-4">Book Now</button>
+          </Link>
         </article>
       </div>
 

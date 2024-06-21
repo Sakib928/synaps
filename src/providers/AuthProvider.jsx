@@ -19,7 +19,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [sessions, setSessions] = useState([]);
+  const [payment, setPayment] = useState(0);
   const [authReload, setAuthReload] = useState(false);
 
   const createUser = (email, password) => {
@@ -77,10 +77,10 @@ const AuthProvider = ({ children }) => {
     githubLogin,
     logout,
     profileUpdate,
-    sessions,
-    setSessions,
     authReload,
     setAuthReload,
+    payment,
+    setPayment,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

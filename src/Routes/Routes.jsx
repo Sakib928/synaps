@@ -16,6 +16,8 @@ import BookedSessions from "../Pages/Dashboard/StudentDashboard/BookedSessions";
 import CreateNote from "../Pages/Dashboard/StudentDashboard/CreateNote";
 import ManageNotes from "../Pages/Dashboard/StudentDashboard/ManageNotes";
 import MyCourseMaterials from "../Pages/Dashboard/StudentDashboard/MyCourseMaterials";
+import Payment from "../Pages/Payment/Payment";
+import BookedSessionDetails from "../components/BookedSessionDetails/BookedSessionDetails";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ export const router = createBrowserRouter([
       {
         path: "session/:id",
         element: <SessionDetails />,
+      },
+      {
+        path: "payment/:id",
+        element: <Payment />,
+      },
+      {
+        path: "bookedSession/:id",
+        element: <BookedSessionDetails />,
       },
     ],
   },
