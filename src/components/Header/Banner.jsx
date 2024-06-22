@@ -12,11 +12,14 @@ const Banner = () => {
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-md">
           <Zoom duration={2000} triggerOnce={true}>
-            <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+            <h1 className="mb-5 text-5xl font-bold">
+              Your Personalized Learning Hub.
+            </h1>
             <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              Empower yourself with our engaging and effective online courses
+              designed to fit your unique learning style. Achieve your academic
+              goals and unlock a world of possibilities. Enroll today and start
+              learning!
             </p>
           </Zoom>
           <button className="btn btn-primary">Get Started</button>

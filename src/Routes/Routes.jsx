@@ -18,6 +18,7 @@ import ManageNotes from "../Pages/Dashboard/StudentDashboard/ManageNotes";
 import MyCourseMaterials from "../Pages/Dashboard/StudentDashboard/MyCourseMaterials";
 import Payment from "../Pages/Payment/Payment";
 import BookedSessionDetails from "../components/BookedSessionDetails/BookedSessionDetails";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -53,7 +54,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     errorElement: <h1>Something went wrong</h1>,
     children: [
       // admin routes
@@ -91,6 +96,7 @@ export const router = createBrowserRouter([
         path: "bookedSessions",
         element: <BookedSessions />,
       },
+
       {
         path: "createNote",
         element: <CreateNote />,

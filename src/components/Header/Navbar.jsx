@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import useRole from "../../hooks/useRole";
 
 const Navbar = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
   const userRole = useRole();
   const handleLogout = () => {
@@ -23,18 +23,21 @@ const Navbar = () => {
   }
   const navLinks = (
     <>
-      <li>
-        <Link to={"/login"}>Login</Link>
-      </li>
-      <li>
-        <Link to={"/register"}>Register</Link>
-      </li>
-      <li>
-        <Link to={primaryDashboardLink}>Dashboard</Link>
-      </li>
-      <li onClick={handleLogout}>
-        <button>Log out</button>
-      </li>
+      {user && (
+        <li>
+          <Link to={primaryDashboardLink}>Dashboard</Link>
+        </li>
+      )}
+      {!user && (
+        <>
+          <li>
+            <Link to={"login"}>Login</Link>
+          </li>
+          <li>
+            <Link to={"register"}>Register</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -78,7 +81,28 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {user && (
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="btn m-1">
+                <img
+                  alt=""
+                  className="w-12 h-12 rounded-full ring-2 ring-offset-4ring-violet-600"
+                  src={user?.photoURL}
+                />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <p>Username : {user?.displayName}</p>
+                </li>
+                <li onClick={handleLogout}>
+                  <a className="font-bold text-red-500">Log Out</a>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
