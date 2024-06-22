@@ -4,16 +4,18 @@ import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 
 const BookedSessions = () => {
+  const { setCurrentUserSessions } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const { data: bookedSessions = [] } = useQuery({
     queryKey: ["bookedSessions", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/bookedSessions?email=${user?.email}`);
+      const userSessions = res?.data?.map((item) => item?.sessionId);
+      setCurrentUserSessions(userSessions);
       return res.data;
     },
   });
-
   console.log(bookedSessions);
   return (
     <div>
@@ -21,7 +23,7 @@ const BookedSessions = () => {
         return (
           <div
             key={session._id}
-            className="max-w-2xl px-8 py-4 bg-slate-400 rounded-lg shadow-md mb-4"
+            className="max-w-2xl px-8 py-4 bg-slate-400 rounded-lg shadow-md mt-4"
           >
             <div className="mt-2">
               <a

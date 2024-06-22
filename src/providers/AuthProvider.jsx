@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [payment, setPayment] = useState(0);
   const [authReload, setAuthReload] = useState(false);
+  const [currentUserSessions, setCurrentUserSessions] = useState([]);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -59,10 +60,12 @@ const AuthProvider = ({ children }) => {
         axiosPublic.post("/jwt", loggedUser).then((res) => {
           if (res.data.token) {
             localStorage.setItem("access-token", res.data.token);
+            setLoading(false);
           }
         });
       } else {
         localStorage.removeItem("access-token");
+        setLoading(false);
       }
     });
     return () => unsubscribe();
@@ -81,6 +84,8 @@ const AuthProvider = ({ children }) => {
     setAuthReload,
     payment,
     setPayment,
+    currentUserSessions,
+    setCurrentUserSessions,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

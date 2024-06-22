@@ -40,7 +40,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "session/:id",
-        element: <SessionDetails />,
+        element: (
+          <PrivateRoute>
+            <SessionDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "payment/:id",

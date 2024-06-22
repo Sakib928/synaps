@@ -25,6 +25,7 @@ const SessionCard = ({ session }) => {
       <div>
         <h1 className="mt-2 text-lg font-semibold">{session.title}</h1>
         <p className="mt-2 text-sm ">{session.description}</p>
+        <p className="font-semibold">Registration Fee : ${session.fee}</p>
       </div>
       <div>
         <div className="flex items-end justify-center place-items-end mt-4">

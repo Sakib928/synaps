@@ -1,10 +1,15 @@
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import useRole from "../../hooks/useRole";
+import toast from "react-hot-toast";
 
 const SessionDetails = () => {
-  const { setPayment } = useAuth();
+  const { payment, setPayment } = useAuth();
+  const { user } = useAuth();
+  const userRole = useRole();
+  const navigate = useNavigate();
   const id = useParams();
   const axiosSecure = useAxiosSecure();
   const { data: session = {} } = useQuery({
@@ -15,6 +20,31 @@ const SessionDetails = () => {
       return res.data;
     },
   });
+  const handleBookNow = async () => {
+    if (payment === 0) {
+      const payment = {
+        studentEmail: user?.email,
+        sessionId: id.id,
+        title: session?.title,
+        tutor: session?.tutor,
+        tutorEmail: session?.tutorEmail,
+        description: session?.description,
+        regiStart: session?.regiStart,
+        regiEnd: session?.regiEnd,
+        classStart: session?.classStart,
+        classEnd: session?.classEnd,
+        duration: session?.duration,
+      };
+      const res = await axiosSecure.post("/bookedSessions", payment);
+      console.log("payment saved", res.data);
+      if (res.data?.insertedId) {
+        toast.success("payment successful");
+      }
+    } else {
+      navigate(`/payment/${session?._id}`);
+    }
+  };
+
   return (
     <div>
       <div className="max-w-4xl p-6 overflow-hidden rounded-lg shadow bg-slate-400 dark:text-gray-800 mx-auto">
@@ -53,9 +83,14 @@ const SessionDetails = () => {
               </h3>
             </div>
           </div>
-          <Link to={`/payment/${session?._id}`}>
-            <button className="btn btn-primary mt-4">Book Now</button>
-          </Link>
+
+          <button
+            onClick={handleBookNow}
+            className="btn btn-primary mt-4 "
+            disabled={userRole !== "student"}
+          >
+            Book Now
+          </button>
         </article>
       </div>
 
