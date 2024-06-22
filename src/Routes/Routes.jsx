@@ -20,12 +20,15 @@ import Payment from "../Pages/Payment/Payment";
 import BookedSessionDetails from "../components/BookedSessionDetails/BookedSessionDetails";
 import PrivateRoute from "./PrivateRoute";
 import Announcement from "../Pages/Dashboard/AdminDashboard/Announcement";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import AdminRoute from "./AdminRoute";
+import TutorRoute from "./TutorRoute";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    errorElement: <h1>Something went wrong</h1>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -53,7 +56,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "bookedSession/:id",
-        element: <BookedSessionDetails />,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <BookedSessionDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -64,59 +72,107 @@ export const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
-    errorElement: <h1>Something went wrong</h1>,
+    errorElement: <ErrorPage />,
     children: [
       // admin routes
       {
         path: "users",
-        element: <Users />,
+        element: (
+          <AdminRoute>
+            <Users />
+          </AdminRoute>
+        ),
       },
       {
         path: "allSessions",
-        element: <AllSessions />,
+        element: (
+          <AdminRoute>
+            <AllSessions />
+          </AdminRoute>
+        ),
       },
       {
         path: "allMaterials",
-        element: <AllMaterials />,
+        element: (
+          <AdminRoute>
+            <AllMaterials />
+          </AdminRoute>
+        ),
       },
       {
         path: "announcement",
-        element: <Announcement />,
+        element: (
+          <AdminRoute>
+            <Announcement />
+          </AdminRoute>
+        ),
       },
       // tutor routes
       {
         path: "createSession",
-        element: <CreateSession />,
+        element: (
+          <TutorRoute>
+            <CreateSession></CreateSession>
+          </TutorRoute>
+        ),
       },
       {
         path: "mySessions",
-        element: <MySessions />,
+        element: (
+          <TutorRoute>
+            <MySessions />
+          </TutorRoute>
+        ),
       },
       {
         path: "uploadMaterials",
-        element: <UploadMaterials />,
+        element: (
+          <TutorRoute>
+            <UploadMaterials />
+          </TutorRoute>
+        ),
       },
       {
         path: "viewMaterials",
-        element: <ViewMaterials />,
+        element: (
+          <TutorRoute>
+            <ViewMaterials />
+          </TutorRoute>
+        ),
       },
       // student routes
       {
         path: "bookedSessions",
-        element: <BookedSessions />,
+        element: (
+          <PrivateRoute>
+            <BookedSessions />
+          </PrivateRoute>
+        ),
       },
 
       {
         path: "createNote",
-        element: <CreateNote />,
+        element: (
+          <PrivateRoute>
+            <CreateNote />
+          </PrivateRoute>
+        ),
       },
       {
         path: "manageNotes",
-        element: <ManageNotes />,
+        element: (
+          <PrivateRoute>
+            <ManageNotes />
+          </PrivateRoute>
+        ),
       },
       {
         path: "myCourseMaterials",
-        element: <MyCourseMaterials />,
+        element: (
+          <PrivateRoute>
+            <MyCourseMaterials />
+          </PrivateRoute>
+        ),
       },
     ],
   },
