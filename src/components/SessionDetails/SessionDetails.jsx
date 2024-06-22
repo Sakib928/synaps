@@ -45,7 +45,7 @@ const SessionDetails = () => {
         duration: session?.duration,
       };
       const res = await axiosSecure.post("/bookedSessions", payment);
-      console.log("payment saved", res.data);
+      // console.log("payment saved", res.data);
       if (res.data?.insertedId) {
         toast.success("payment successful");
       }

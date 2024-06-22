@@ -11,7 +11,7 @@ const UploadCard = ({ session }) => {
   const { title, _id } = session;
   const axiosSecure = useAxiosSecure();
   const handleUpload = () => {
-    console.log("upload for session", _id);
+    // console.log("upload for session", _id);
     document.getElementById("my_modal_5").showModal();
   };
   const { register, handleSubmit } = useForm();
@@ -22,7 +22,7 @@ const UploadCard = ({ session }) => {
         "content-type": "multipart/form-data",
       },
     });
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.success) {
       const material = {
         title: data.title,
@@ -32,7 +32,7 @@ const UploadCard = ({ session }) => {
         driveLink: data.driveLink,
       };
       const materialRes = await axiosSecure.post("/materials", material);
-      console.log(materialRes.data);
+      // console.log(materialRes.data);
       if (materialRes.data.insertedId) {
         toast.success("added item successfully");
       } else {

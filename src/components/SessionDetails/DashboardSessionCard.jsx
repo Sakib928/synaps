@@ -16,7 +16,7 @@ const DashboardSessionCard = ({ session, refetch, idx }) => {
 
   const approve = () => {
     setApproveId(_id);
-    console.log(approveId);
+    // console.log(approveId);
     document.getElementById(`${idx}`).showModal();
   };
   const reject = () => {
@@ -25,9 +25,9 @@ const DashboardSessionCard = ({ session, refetch, idx }) => {
   };
 
   const handleApprove = () => {
-    console.log("this id session will be approved", approveId);
+    // console.log("this id session will be approved", approveId);
     const fee = feeRef.current.value;
-    console.log(fee);
+    // console.log(fee);
     axiosSecure.patch(`/approve/${approveId}`, { fee: fee }).then((res) => {
       if (res.data.modifiedCount) {
         toast.success("approved session");
@@ -37,7 +37,7 @@ const DashboardSessionCard = ({ session, refetch, idx }) => {
   };
 
   const handleReject = () => {
-    console.log("this id session will be rejected", rejectId);
+    // console.log("this id session will be rejected", rejectId);
     const feedback = {
       sessionId: rejectId,
       reason: reasonRef.current.value,
@@ -45,7 +45,7 @@ const DashboardSessionCard = ({ session, refetch, idx }) => {
       tutorEmail: tutorEmail,
     };
     axiosSecure.patch(`/reject/${rejectId}`, feedback).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.matchedCount) {
         toast.success("rejected session");
         refetch();

@@ -14,7 +14,7 @@ const AllMaterials = () => {
       return res.data;
     },
   });
-  console.log(allMaterials);
+  // console.log(allMaterials);
   return (
     <div>
       <Toaster />

@@ -22,7 +22,7 @@ const ViewMaterialCard = ({ material, refetch }) => {
         "content-type": "multipart/form-data",
       },
     });
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.success) {
       const updatedMaterial = {
         title: data.title,
@@ -33,7 +33,7 @@ const ViewMaterialCard = ({ material, refetch }) => {
         `/materials/${_id}`,
         updatedMaterial
       );
-      console.log(materialRes.data);
+      // console.log(materialRes.data);
       if (materialRes.data.modifiedCount) {
         toast.success("updated item successfully");
         refetch();

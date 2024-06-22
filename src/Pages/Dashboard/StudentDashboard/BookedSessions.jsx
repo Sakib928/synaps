@@ -16,7 +16,7 @@ const BookedSessions = () => {
       return res.data;
     },
   });
-  console.log(bookedSessions);
+  // console.log(bookedSessions);
   return (
     <div>
       {bookedSessions.map((session) => {

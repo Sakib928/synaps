@@ -14,7 +14,7 @@ const ManageNotes = () => {
       return res.data;
     },
   });
-  console.log(userNotes);
+  // console.log(userNotes);
   return (
     <div>
       <Toaster />

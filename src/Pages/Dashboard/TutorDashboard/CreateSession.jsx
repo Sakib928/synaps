@@ -33,9 +33,9 @@ const CreateSession = () => {
       fee: 0,
       status: "pending",
     };
-    console.log(sessionData);
+    // console.log(sessionData);
     axiosSecure.post("/sessions", sessionData).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.insertedId) {
         toast.success("successfully added session");
         reset();

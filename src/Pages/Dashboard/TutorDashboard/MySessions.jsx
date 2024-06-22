@@ -17,9 +17,9 @@ const MySessions = () => {
   });
 
   const handleResend = (_id) => {
-    console.log("resend request for the id", _id);
+    // console.log("resend request for the id", _id);
     axiosSecure.patch(`/resend/${_id}`).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.modifiedCount) {
         toast.success("request for approval sent");
         refetch();

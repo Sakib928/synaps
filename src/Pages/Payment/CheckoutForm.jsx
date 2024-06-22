@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 // import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ id }) => {
-  console.log(id);
+  // console.log(id);
   const { data: session = {} } = useQuery({
     queryKey: ["sessionDetails", id],
     queryFn: async () => {
@@ -15,7 +15,7 @@ const CheckoutForm = ({ id }) => {
       return res.data;
     },
   });
-  console.log(session);
+  // console.log(session);
   const { user, payment } = useAuth();
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
@@ -33,7 +33,7 @@ const CheckoutForm = ({ id }) => {
           payment: payment,
         })
         .then((res) => {
-          console.log(res?.data);
+          // console.log(res?.data);
           setClientSecret(res?.data.clientSecret);
         });
     }
@@ -48,15 +48,15 @@ const CheckoutForm = ({ id }) => {
     if (card === null) {
       return;
     }
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
     if (error) {
-      console.log("[error]", error);
+      // console.log("[error]", error);
       setError(error.message);
     } else {
-      console.log("[PaymentMethod]", paymentMethod);
+      // console.log("[PaymentMethod]", paymentMethod);
       setError("");
     }
     const { paymentIntent, paymentError } = await stripe.confirmCardPayment(
@@ -72,11 +72,11 @@ const CheckoutForm = ({ id }) => {
       }
     );
     if (paymentError) {
-      console.log("payment error");
+      // console.log("payment error");
     } else {
-      console.log("payment intent", paymentIntent);
+      // console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        console.log("transaction id :", paymentIntent?.id);
+        // console.log("transaction id :", paymentIntent?.id);
         setTransactionId(paymentIntent?.id);
         // now save the payment in the process
         const payment = {
@@ -93,7 +93,7 @@ const CheckoutForm = ({ id }) => {
           duration: session?.duration,
         };
         const res = await axiosSecure.post("/bookedSessions", payment);
-        console.log("payment saved", res.data);
+        // console.log("payment saved", res.data);
         if (res.data?.insertedId) {
           toast.success("payment successful");
         }

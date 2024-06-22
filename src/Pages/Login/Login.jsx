@@ -37,14 +37,14 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     googleLogin().then((res) => {
-      console.log(res.user);
+      // console.log(res.user);
       const userInfo = {
         name: res.user?.displayName,
         email: res.user?.email,
         role: "student",
       };
-      axiosPublic.post("/users", userInfo).then((res) => {
-        console.log(res.data);
+      axiosPublic.post("/users", userInfo).then(() => {
+        // console.log(res.data);
         setTimeout(() => {
           navigate("/");
         }, 2000);

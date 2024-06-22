@@ -6,7 +6,7 @@ import { FaDownload } from "react-icons/fa";
 
 const MyCourseMaterials = () => {
   const { currentUserSessions } = useAuth();
-  console.log(currentUserSessions);
+  // console.log(currentUserSessions);
   const axiosSecure = useAxiosSecure();
   const { data: myCourseMaterials = [], isPending } = useQuery({
     queryKey: ["myCourseMaterials", currentUserSessions],
@@ -17,7 +17,7 @@ const MyCourseMaterials = () => {
       return res.data;
     },
   });
-  console.log(myCourseMaterials);
+  // console.log(myCourseMaterials);
   if (isPending) {
     return (
       <div className="flex min-h-screen min-w-screen justify-center">

@@ -8,7 +8,7 @@ import { IoMenu } from "react-icons/io5";
 
 const Dashboard = () => {
   const userRole = useRole();
-  console.log("checking user role : ", userRole);
+  // console.log("checking user role : ", userRole);
   return (
     <div className="drawer lg:drawer-open text-left">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

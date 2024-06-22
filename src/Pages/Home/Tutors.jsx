@@ -14,7 +14,7 @@ const Tutors = () => {
       return res.data;
     },
   });
-  console.log(tutors);
+  // console.log(tutors);
   return (
     <div className="text-center my-8">
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">

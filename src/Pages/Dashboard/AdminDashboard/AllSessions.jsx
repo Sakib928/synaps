@@ -11,7 +11,7 @@ const AllSessions = () => {
       return result.data;
     },
   });
-  console.log(allSessions);
+  // console.log(allSessions);
   return (
     <div>
       {allSessions.map((session, idx) => {
