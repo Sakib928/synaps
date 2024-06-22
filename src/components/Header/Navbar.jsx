@@ -134,7 +134,7 @@ const Navbar = () => {
           {announcements?.map((item) => {
             return (
               <div key={item._id} className="mb-4">
-                <h1 className="fond-bold">{item?.title}</h1>
+                <h1 className="font-bold">{item?.title}</h1>
                 <p>{item?.announcement}</p>
               </div>
             );

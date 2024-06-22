@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { GrUserAdmin } from "react-icons/gr";
-import { FaChalkboardTeacher } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
+import { useRef, useState } from "react";
 
 const Users = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: users = [], refetch } = useQuery({
+  const [showUsers, setShowUsers] = useState([]);
+  const { refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
+      setShowUsers(res.data);
       return res.data;
     },
   });
@@ -34,43 +35,89 @@ const Users = () => {
       }
     });
   };
+  const handleMakeStudent = (id) => {
+    console.log("this id will be tutor from now on", id);
+    axiosSecure.patch(`/student/${id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.modifiedCount) {
+        toast.success("make student done");
+        refetch();
+      }
+    });
+  };
+
+  const searchRef = useRef();
+
+  const handleSearch = async () => {
+    const search = searchRef.current.value;
+    const res = await axiosSecure.get(`/searchUsers?search=${search}`);
+    setShowUsers(res?.data);
+  };
   return (
     <div>
       <Toaster />
+      <div className="join my-12">
+        <div>
+          <div>
+            <input
+              ref={searchRef}
+              className="input input-bordered join-item"
+              placeholder="Search"
+            />
+          </div>
+        </div>
+        <div onClick={handleSearch} className="indicator">
+          <button className="btn join-item btn-primary">Search</button>
+        </div>
+      </div>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
           <thead>
             <tr>
-              <th>#</th>
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th></th>
-              <th></th>
+              <th>Change Role</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user, idx) => {
+            {showUsers.map((user) => {
               return (
                 <tr key={user._id}>
-                  <th>{idx + 1}</th>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
-                  <td
-                    onClick={() => handleMakeAdmin(user._id)}
-                    className="btn btn-ghost tooltip"
-                    data-tip="make admin"
-                  >
-                    <GrUserAdmin />
-                  </td>
-                  <td
-                    onClick={() => handleMakeTutor(user._id)}
-                    className="btn btn-ghost tooltip"
-                    data-tip="make tutor"
-                  >
-                    <FaChalkboardTeacher />
+                  <td>
+                    <div className="dropdown dropdown-bottom">
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        className="btn m-1 btn-primary"
+                      >
+                        Change
+                      </div>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                      >
+                        <li>
+                          <button onClick={() => handleMakeAdmin(user._id)}>
+                            Make admin
+                          </button>
+                        </li>
+                        <li>
+                          <button onClick={() => handleMakeTutor(user._id)}>
+                            Make tutor
+                          </button>
+                        </li>
+                        <li>
+                          <button onClick={() => handleMakeStudent(user._id)}>
+                            Make student
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
                   </td>
                 </tr>
               );

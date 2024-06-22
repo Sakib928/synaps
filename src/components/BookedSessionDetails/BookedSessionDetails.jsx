@@ -28,7 +28,7 @@ const BookedSessionDetails = () => {
     const review = {
       ...data,
       studentEmail: user?.email,
-      sessionId: id,
+      sessionId: singleBookedSession?.sessionId,
     };
     const res = await axiosSecure.post("/reviews", review);
     if (res.data.insertedId) {

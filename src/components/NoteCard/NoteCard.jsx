@@ -54,7 +54,7 @@ const NoteCard = ({ note, refetch }) => {
         </div>
       </div>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
-      <dialog id={note._id} className="modal modal-bottom sm:modal-middle">
+      <dialog id={note._id + 1} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
