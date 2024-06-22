@@ -13,6 +13,9 @@ const AdminDashboard = () => {
         <NavLink to={"/dashboard/allMaterials"}>View All Materials</NavLink>
       </li>
       <li>
+        <NavLink to={"/dashboard/announcement"}>Make an announcement</NavLink>
+      </li>
+      <li>
         <NavLink to={"/"}>HomePage</NavLink>
       </li>
     </ul>

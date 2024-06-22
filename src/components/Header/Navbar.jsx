@@ -3,6 +3,9 @@ import useAuth from "../../hooks/useAuth";
 import logo from "../../assets/images/logo.svg";
 import toast, { Toaster } from "react-hot-toast";
 import useRole from "../../hooks/useRole";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { useQuery } from "@tanstack/react-query";
+import { axiosPublic } from "../../hooks/useAxiosPublic";
 
 const Navbar = () => {
   const { logout, user } = useAuth();
@@ -40,6 +43,16 @@ const Navbar = () => {
       )}
     </>
   );
+
+  const { data: announcements = [] } = useQuery({
+    queryKey: ["announcements"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/announcements");
+      return res.data;
+    },
+  });
+  // console.log(announcements);
+
   return (
     <div>
       <Toaster />
@@ -81,6 +94,12 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
+          <label
+            htmlFor="announcements"
+            className="btn btn-circle btn-outline text-xl font-bold"
+          >
+            <IoMdNotificationsOutline />
+          </label>
           {user && (
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="btn m-1">
@@ -104,6 +123,26 @@ const Navbar = () => {
             </div>
           )}
         </div>
+      </div>
+      {/* The button to open modal */}
+
+      {/* Put this part before </body> tag */}
+      <input type="checkbox" id="announcements" className="modal-toggle" />
+      <div className="modal" role="dialog">
+        <div className="modal-box">
+          <h3 className="text-lg font-bold">Announcements</h3>
+          {announcements?.map((item) => {
+            return (
+              <div key={item._id} className="mb-4">
+                <h1 className="fond-bold">{item?.title}</h1>
+                <p>{item?.announcement}</p>
+              </div>
+            );
+          })}
+        </div>
+        <label className="modal-backdrop" htmlFor="announcements">
+          Close
+        </label>
       </div>
     </div>
   );

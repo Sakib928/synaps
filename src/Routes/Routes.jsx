@@ -19,6 +19,7 @@ import MyCourseMaterials from "../Pages/Dashboard/StudentDashboard/MyCourseMater
 import Payment from "../Pages/Payment/Payment";
 import BookedSessionDetails from "../components/BookedSessionDetails/BookedSessionDetails";
 import PrivateRoute from "./PrivateRoute";
+import Announcement from "../Pages/Dashboard/AdminDashboard/Announcement";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: "allMaterials",
         element: <AllMaterials />,
+      },
+      {
+        path: "announcement",
+        element: <Announcement />,
       },
       // tutor routes
       {

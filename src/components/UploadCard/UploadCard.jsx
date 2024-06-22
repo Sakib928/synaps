@@ -41,7 +41,7 @@ const UploadCard = ({ session }) => {
     }
   };
   return (
-    <div className="relative flex flex-col max-w-2xl p-6 divide-y xl:flex-row xl:divide-y-0 xl:divide-x bg-slate-400 dark:divide-gray-300 rounded-xl">
+    <div className="relative flex flex-col max-w-2xl p-6 divide-y xl:flex-row xl:divide-y-0 xl:divide-x bg-slate-400 dark:divide-gray-300 rounded-xl mt-4">
       <div className="p-3 space-y-1">
         <h3 className="text-3xl font-semibold">Course Name : {title}</h3>
       </div>

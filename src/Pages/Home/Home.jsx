@@ -4,6 +4,7 @@ import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import { useQuery } from "@tanstack/react-query";
 import { axiosPublic } from "../../hooks/useAxiosPublic";
 import { useState } from "react";
+import Tutors from "./Tutors";
 
 const Home = () => {
   const [homeSessions, setHomeSessions] = useState([]);
@@ -56,6 +57,8 @@ const Home = () => {
           </button>
         )}
       </div>
+      <SectionTitle heading={"Meet our tutors"}></SectionTitle>
+      <Tutors />
     </div>
   );
 };

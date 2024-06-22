@@ -59,7 +59,7 @@ const CreateSession = () => {
               </label>
               <input
                 {...register("title")}
-                required
+                required={true}
                 id="title"
                 type="text"
                 placeholder="Session Title"
@@ -73,7 +73,7 @@ const CreateSession = () => {
                 </label>
                 <input
                   {...register("tutor")}
-                  required
+                  required={true}
                   id="tutorname"
                   type="text"
                   value={user?.displayName}
@@ -87,7 +87,7 @@ const CreateSession = () => {
                 </label>
                 <input
                   {...register("tutorEmail")}
-                  required
+                  required={true}
                   id="tutoremail"
                   type="text"
                   value={user?.email}
@@ -148,7 +148,7 @@ const CreateSession = () => {
                 </label>
                 <br />
                 <DatePicker
-                  required="true"
+                  required={true}
                   selected={classEnd}
                   onChange={(date) => setClassEnd(date)}
                   className="input input-bordered w-full border-2 border-black max-w-xs"
@@ -160,7 +160,7 @@ const CreateSession = () => {
                 </label>
                 <input
                   {...register("duration")}
-                  required
+                  required={true}
                   id="duration"
                   type="text"
                   className="w-full rounded-md input border-2 border-black p-2"
@@ -172,7 +172,7 @@ const CreateSession = () => {
                 </label>
                 <input
                   {...register("fee")}
-                  required
+                  required={true}
                   id="price"
                   type="text"
                   value="$0"
