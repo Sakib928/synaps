@@ -2,6 +2,7 @@
 
 Welcome to Synaps, a comprehensive study platform designed to facilitate learning and teaching. Whether you're a student looking to enhance your knowledge, a tutor aiming to share your expertise, or an admin managing the platform, Synaps has the tools you need.
 
+Live Link : https://a-12-client.web.app
 
 ## Features and Functionalities
 
