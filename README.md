@@ -34,4 +34,12 @@ Admins on Synaps can:
 - Support and Feedback: Handle user support tickets and feedback to improve the platform experience.
 - Announcements: Post announcements and updates for all users on the platform.
 
+## How to run locally :
+
+- clone the project
+- put npm i command in the terminal
+- create a firebase app and connect it with the project
+- put npm run dev command and you are good to go
+
+
 
